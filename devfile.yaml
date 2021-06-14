@@ -60,6 +60,11 @@ components:
         port: 27017
     memoryLimit: 512Mi
     type: dockerimage
+    volumes:
+      - name: mongo-1
+        containerPath: /data/configdb
+      - name: mongo-2
+        containerPath: /data/db
     image: 'docker.io/mongo:4.0.25'
     env:
       - value: root
