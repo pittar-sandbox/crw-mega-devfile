@@ -4,7 +4,7 @@ metadata:
 projects:
   - name: dotnet-app
     source:
-      location: 'https://github.com/ProofOfConceptDeveloper/PFR'
+      location: 'git@github.com:ProofOfConceptDeveloper/PFR.git'
       startPoint: pittar
       type: git
 components:
