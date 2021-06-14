@@ -4,8 +4,8 @@ metadata:
 projects:
   - name: dotnet-app
     source:
-      location: 'https://github.com/pittar-sandbox/dotnet-contoso-app'
-      startPoint: main
+      location: 'https://github.com/ProofOfConceptDeveloper/PFR'
+      startPoint: pittar
       type: git
 components:
   - id: redhat-developer/che-omnisharp-plugin/latest
@@ -88,19 +88,19 @@ components:
 commands:
   - name: 1. Update dependencies
     actions:
-      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app'
+      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI'
         type: exec
         command: dotnet restore
         component: dotnet
   - name: 2. Build
     actions:
-      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app'
+      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI'
         type: exec
         command: dotnet build
         component: dotnet
   - name: 3. Run
     actions:
-      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app'
+      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI'
         type: exec
         command: dotnet run
         component: dotnet
