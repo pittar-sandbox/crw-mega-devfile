@@ -46,6 +46,7 @@ components:
     endpoints:
       - name: mongodb
         port: 27017
+    memoryLimit: 512Mi
     type: dockerimage
     image: 'docker.io/mongo:4.0.25'
     env:
@@ -57,6 +58,7 @@ components:
     endpoints:
       - name: mongo-express
         port: 8081
+    memoryLimit: 512Mi
     type: dockerimage
     image: 'docker.io/mongo-express:0.54'
     env:
