@@ -42,6 +42,18 @@ components:
         name: POSTGRESQL_PASSWORD
       - value: appdb
         name: POSTGRESQL_DATABASE
+  - alias: pgadmin4
+    endpoints:
+      - name: pgadmin4
+        port: 5050
+    memoryLimit: 512Mi
+    type: dockerimage
+    image: 'registry.connect.redhat.com/crunchydata/crunchy-pgadmin4:latest'
+    env:
+      - value: apitt@redhat.com
+        name: PGADMIN_SETUP_EMAIL
+      - value: password
+        name: PGADMIN_SETUP_PASSWORD
   # - alias: mongodb
   #   endpoints:
   #     - name: mongodb
