@@ -1,0 +1,49 @@
+apiVersion: 1.0.0
+metadata:
+  name: dotnet
+projects:
+  - name: dotnet-app
+    source:
+      location: 'https://github.com/ProofOfConceptDeveloper/PFR'
+      startPoint: pittar
+      type: git
+components:
+  - id: redhat-developer/che-omnisharp-plugin/latest
+    type: chePlugin
+    alias: omnisharp
+  - id: redhat-developer/netcoredbg-theia-plugin/latest
+    type: chePlugin
+    alias: netcoredbg
+  - mountSources: true
+    endpoints:
+      - name: pfr-endpoint
+        port: 5000
+    memoryLimit: 512Mi
+    type: dockerimage
+    volumes:
+      - name: nuget
+        containerPath: /home/jboss/.nuget
+    alias: dotnet
+    image: 'registry.redhat.io/codeready-workspaces/stacks-dotnet-rhel8@sha256:ea77974b206c7d7abcad5cd32149f6bb669d3cf867135553af4d7dddd24ba9cf'
+  - type: kubernetes
+    reference: codeready/crw-kafka.yaml
+    alias: kafka
+commands:
+  - name: 1. Update dependencies
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI'
+        type: exec
+        command: dotnet restore
+        component: dotnet
+  - name: 2. Build
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI'
+        type: exec
+        command: dotnet build
+        component: dotnet
+  - name: 3. Run
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI'
+        type: exec
+        command: dotnet run
+        component: dotnet
