@@ -71,18 +71,18 @@ components:
         name: MONGO_INITDB_ROOT_USERNAME
       - value: password
         name: MONGO_INITDB_ROOT_PASSWORD
-  # - alias: mongo-express
-  #   endpoints:
-  #     - name: mongo-express
-  #       port: 8081
-  #   memoryLimit: 512Mi
-  #   type: dockerimage
-  #   image: 'docker.io/mongo-express:0.54'
-  #   env:
-  #     - value: root
-  #       name: ME_CONFIG_MONGODB_ADMINUSERNAME
-  #     - value: password
-  #       name: ME_CONFIG_MONGODB_ADMINPASSWORD
+  - alias: mongo-express
+    endpoints:
+      - name: mongo-express
+        port: 8081
+    memoryLimit: 512Mi
+    type: dockerimage
+    image: 'docker.io/mongo-express:0.54'
+    env:
+      - value: root
+        name: ME_CONFIG_MONGODB_ADMINUSERNAME
+      - value: password
+        name: ME_CONFIG_MONGODB_ADMINPASSWORD
 commands:
   - name: 1. Update dependencies
     actions:
