@@ -32,7 +32,7 @@ components:
     endpoints:
       - name: postgresql
         port: 5432
-    memoryLimit: 512Mi
+    memoryLimit: 256Mi
     type: dockerimage
     image: 'registry.redhat.io/rhel8/postgresql-10:latest'
     env:
@@ -46,11 +46,11 @@ components:
     endpoints:
       - name: pgadmin4
         port: 5050
-    memoryLimit: 512Mi
+    memoryLimit: 256Mi
     type: dockerimage
     image: 'registry.connect.redhat.com/crunchydata/crunchy-pgadmin4:latest'
     env:
-      - value: apitt@redhat.com
+      - value: admin@example.com
         name: PGADMIN_SETUP_EMAIL
       - value: password
         name: PGADMIN_SETUP_PASSWORD
