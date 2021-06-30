@@ -104,3 +104,22 @@ commands:
         type: exec
         command: dotnet run
         component: dotnet
+  - name: Launch .net web application in debug mode
+    actions:
+      - referenceContent: |
+          {
+            "version": "0.2.0",
+              "configurations": [
+                 {
+                    "type": "netcoredbg",
+                    "request": "launch",
+                    "program": "/projects/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI/bin/Debug/netcoreapp3.1/web.dll",
+                    "args": [],
+                    "name": ".NET Core Launch (console)",
+                    "stopAtEntry": true,
+                    "preLaunchTask": "2. Build",
+                    "console": "internalConsole"
+                  }
+              ]
+          }
+        type: vscode-launch
