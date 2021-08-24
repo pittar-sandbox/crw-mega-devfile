@@ -104,6 +104,44 @@ commands:
         type: exec
         command: dotnet run
         component: dotnet
+  - name: Share this workspace
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/dotnet-app/PoliticalFinanceReturn/PFR.Web.UI'
+        type: exec
+        command: |
+          read -p "ENTER your OpenShift username: " OCP_USERNAME
+          read -p "ENTER your OpenShift password: " -s OCP_PASSWORD
+          echo
+          # Login to OpenShift with the provided credentials, and grab the token
+          oc login --insecure-skip-tls-verify=true -u $OCP_USERNAME -p $OCP_PASSWORD $KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT
+          OCP_TOKEN=$(oc whoami -t)
+          echo
+          # Read username
+          read -p "ENTER the username of the person with whom you want to share this workspace: " OTHER_CRW_USER
+          echo
+          KEYCLOAK_URL=http://keycloak.openshift-workspaces.svc:8080
+          # Download jq to tmp folder
+          curl -L -s https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o /tmp/jq
+          chmod +x /tmp/jq
+          # Swap OCP Token for CRW Token
+          CRW_TOKEN=$(curl -X POST -s -d "client_id=codeready-public" --data-urlencode "grant_type=urn:ietf:params:oauth:grant-type:token-exchange" -d "subject_token=${OCP_TOKEN}" -d "subject_issuer=openshift-v4" --data-urlencode "subject_token_type=urn:ietf:params:oauth:token-type:access_token" ${KEYCLOAK_URL}/auth/realms/codeready/protocol/openid-connect/token | /tmp/jq -r .access_token)
+          # Get target user's GUID from their username
+          CHE_USER_ID=$(curl -s -H "Authorization: Bearer ${CRW_TOKEN}" "${CHE_API}/user/find?name=${OTHER_CRW_USER}" | /tmp/jq -r .id)
+          # Remove jq
+          rm -f /tmp/jq
+          # Grant read, use, and run permissions for this workspace for the indicated user
+          curl -X POST --header 'Content-Type: application/json' -H "Authorization: Bearer ${CRW_TOKEN}" -H 'Accept: text/html' -d '{
+            "actions": [
+              "read",
+              "use",
+              "run"
+            ],
+            "userId": "'$CHE_USER_ID'",
+            "domainId": "workspace",
+            "instanceId": "'$CHE_WORKSPACE_ID'"
+          }' "${CHE_API}/permissions" && \
+          echo "✅ Successfully shared workspace with user $OTHER_CRW_USER"
+        component: dotnet
   - name: Launch .net web application in debug mode
     actions:
       - referenceContent: |
