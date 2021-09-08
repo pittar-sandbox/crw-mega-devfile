@@ -28,49 +28,49 @@ components:
   - type: kubernetes
     reference: codeready/crw-kafka.yaml
     alias: kafka
-#   - alias: postgresql
-#     endpoints:
-#       - name: postgresql
-#         port: 5432
-#     memoryLimit: 256Mi
-#     type: dockerimage
-#     image: 'registry.redhat.io/rhel8/postgresql-10:latest'
-#     env:
-#       - value: admin
-#         name: POSTGRESQL_USER
-#       - value: password
-#         name: POSTGRESQL_PASSWORD
-#       - value: appdb
-#         name: POSTGRESQL_DATABASE
-#   - alias: pgadmin4
-#     endpoints:
-#       - name: pgadmin4
-#         port: 5050
-#     memoryLimit: 256Mi
-#     type: dockerimage
-#     image: 'registry.connect.redhat.com/crunchydata/crunchy-pgadmin4:latest'
-#     env:
-#       - value: admin@example.com
-#         name: PGADMIN_SETUP_EMAIL
-#       - value: password
-#         name: PGADMIN_SETUP_PASSWORD
-#   - alias: mongodb
-#     endpoints:
-#       - name: mongodb
-#         port: 27017
-#     memoryLimit: 512Mi
-#     type: dockerimage
-#     volumes:
-#       - name: mongo-1
-#         containerPath: /data/configdb
-#       - name: mongo-2
-#         containerPath: /data/db
-#     image: 'docker.io/mongo:4.0.25'
-#     env:
-#       - value: root
-#         name: MONGO_INITDB_ROOT_USERNAME
-#       - value: password
-#         name: MONGO_INITDB_ROOT_PASSWORD
+  - alias: postgresql
+    endpoints:
+      - name: postgresql
+        port: 5432
+    memoryLimit: 256Mi
+    type: dockerimage
+    image: 'registry.redhat.io/rhel8/postgresql-10:latest'
+    env:
+      - value: admin
+        name: POSTGRESQL_USER
+      - value: password
+        name: POSTGRESQL_PASSWORD
+      - value: appdb
+        name: POSTGRESQL_DATABASE
+  - alias: pgadmin4
+    endpoints:
+      - name: pgadmin4
+        port: 5050
+    memoryLimit: 256Mi
+    type: dockerimage
+    image: 'registry.connect.redhat.com/crunchydata/crunchy-pgadmin4:latest'
+    env:
+      - value: admin@example.com
+        name: PGADMIN_SETUP_EMAIL
+      - value: password
+        name: PGADMIN_SETUP_PASSWORD
+  - alias: mongodb
+    endpoints:
+      - name: mongodb
+        port: 27017
+    memoryLimit: 512Mi
+    type: dockerimage
+    volumes:
+      - name: mongo-1
+        containerPath: /data/configdb
+      - name: mongo-2
+        containerPath: /data/db
+    image: 'docker.io/mongo:4.0.25'
+    env:
+      - value: root
+        name: MONGO_INITDB_ROOT_USERNAME
+      - value: password
+        name: MONGO_INITDB_ROOT_PASSWORD
 #   - alias: mongo-express
 #     endpoints:
 #       - name: mongo-express
